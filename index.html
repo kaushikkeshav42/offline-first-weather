@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Offline-First Dynamic Weather Forecast Application using Service Workers and IndexedDB" />
+    <title>Offline-First Weather Dashboard</title>
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="container header-inner">
+            <h1>⛅ Offline-First Weather Forecast</h1>
+            <div class="metrics-bar">
+                <span id="network-badge" class="badge online" role="status" aria-live="polite">Online</span>
+                <span id="cache-hit-counter" class="badge">Network Calls Saved: 0%</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="search-section" aria-label="City Weather Search">
+            <label for="city-search" class="sr-only">Search city</label>
+            <input id="city-search" type="search"
+                placeholder="Search city (e.g., Bahadurgarh, Delhi, Bengaluru, London)..." autocomplete="off"
+                aria-describedby="search-hint" />
+            <p id="search-hint" class="hint-text">
+                Debounced by 300ms • Cached in IndexedDB for instant offline fallback
+            </p>
+        </section>
+
+        <!-- Fixed min-height container prevents Cumulative Layout Shift (CLS < 0.05) -->
+        <section id="weather-display" class="weather-card" aria-live="polite">
+            <div class="skeleton-placeholder">
+                Search for a city above to load real-time &amp; offline-cached forecast data.
+            </div>
+        </section>
+
+        <section class="recent-section" aria-labelledby="recent-heading">
+            <h2 id="recent-heading">Cached Offline Forecasts (IndexedDB)</h2>
+            <div id="cached-cities-list" class="cached-list"></div>
+        </section>
+    </main>
+
+    <script type="module" src="app.js" defer></script>
+</body>
+
+</html>
